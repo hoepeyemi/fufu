@@ -1,4 +1,4 @@
-import { mintLicenseOnMantle, checkExistingLicenses } from './storyService';
+import { mintLicenseOnCreditcoin, checkExistingLicenses } from './storyService';
 import { Address } from 'viem';
 import { BLOCK_EXPLORER_URL } from '../utils/config';
 import { convertBigIntsToStrings } from '../utils/bigIntSerializer';
@@ -32,7 +32,7 @@ export const mintLicense = async (licenseRequest: LicenseRequest) => {
             txHash,
             blockNumber,
             explorerUrl
-        } = await mintLicenseOnMantle(
+        } = await mintLicenseOnCreditcoin(
             licenseRequest.tokenId,
             licenseRequest.royaltyPercentage,
             licenseRequest.duration,

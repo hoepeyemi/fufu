@@ -154,7 +154,7 @@ export const checkExistingLicenses = async (
     }
 };
 
-export const registerIpWithMantle = async (
+export const registerIpWithCreditcoin = async (
     ipHash: string,
     metadata: string,
     isEncrypted: boolean,
@@ -353,7 +353,7 @@ export const registerIpWithMantle = async (
     throw lastError;
 };
 
-export const mintLicenseOnMantle = async (
+export const mintLicenseOnCreditcoin = async (
     tokenId: number,
     royaltyPercentage: number,
     duration: number,

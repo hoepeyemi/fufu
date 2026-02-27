@@ -3,9 +3,9 @@
 ## Current Contract Status
 
 The application is currently using the deployed contract:
-- **ModredIP**: `0x44e670d21Fb5da3f87512222B8EDBFb7989477B6`
-- **ERC6551Registry**: `0x5829940874605d61496CE818914B972c507E55c7`
-- **ERC6551Account**: `0x0734d90FA1857C073c4bf1e57f4F4151BE2e9f82`
+- **ModredIP**: `0x33d0D9489a91FD1fe6988F7e55a3Fc389872BF6e`
+- **ERC6551Registry**: `0xAafe69050ebc9ACC77F0074d61B6E52211a6AAB6`
+- **ERC6551Account**: `0xD3c4634271343fd91290ac96432f46f6eA8554f6`
 - **Contract Key**: `ModredIPModule#ModredIP` (maintained for compatibility)
 - **Status**: ✅ Active and verified to have `registerIP` function
 

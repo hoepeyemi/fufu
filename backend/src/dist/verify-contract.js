@@ -98,8 +98,8 @@ async function verifyContract(contractAddress, contractName) {
 async function main() {
     console.log('🔍 Verifying Contracts for registerIP Function\n');
     console.log('='.repeat(60));
-    const v1Address = '0x0734d90FA1857C073c4bf1e57f4F4151BE2e9f82';
-    const v2Address = '0x44e670d21Fb5da3f87512222B8EDBFb7989477B6';
+    const v1Address = '0xD3c4634271343fd91290ac96432f46f6eA8554f6';
+    const v2Address = '0x33d0D9489a91FD1fe6988F7e55a3Fc389872BF6e';
     const v1HasFunction = await verifyContract(v1Address, 'Sear Module V1');
     const v2HasFunction = await verifyContract(v2Address, 'Sear Module V2');
     console.log('\n' + '='.repeat(60));

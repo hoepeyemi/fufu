@@ -1,7 +1,7 @@
-# Contract Deployment Script for Mantle Sepolia Testnet (PowerShell)
+# Contract Deployment Script for Creditcoin Testnet (PowerShell)
 # Make sure you have DEPLOYER_PRIVATE_KEY set in your environment
 
-Write-Host "🚀 Deploying Sear contract to Mantle Sepolia Testnet..." -ForegroundColor Cyan
+Write-Host "🚀 Deploying ModredIP contract to Creditcoin Testnet..." -ForegroundColor Cyan
 Write-Host ""
 
 # Check if DEPLOYER_PRIVATE_KEY is set
@@ -17,7 +17,7 @@ Write-Host ""
 
 # Deploy the contract
 Write-Host "📦 Deploying contract..." -ForegroundColor Yellow
-npx hardhat ignition deploy ignition/modules/Sear.ts --network mantleTestnet
+npx hardhat ignition deploy ignition/modules/ModredIP.ts --network creditcoinTestnet
 
 Write-Host ""
 Write-Host "✅ Deployment complete!" -ForegroundColor Green
@@ -25,6 +25,6 @@ Write-Host ""
 Write-Host "📝 Next steps:" -ForegroundColor Cyan
 Write-Host "1. Copy the deployed contract address from the output above"
 Write-Host "2. Update app/src/deployed_addresses.json with the new address:"
-Write-Host "   `"SearModule#Sear`": `"NEW_ADDRESS_HERE`""
+Write-Host "   `"ModredIPModule#ModredIP`": `"NEW_ADDRESS_HERE`""
 Write-Host "3. Restart your backend and frontend"
 Write-Host ""

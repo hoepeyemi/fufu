@@ -489,7 +489,7 @@ export const IPPortfolio: React.FC<IPPortfolioProps> = ({
           <div className="stat-card">
             <div className="stat-icon">💰</div>
             <div className="stat-content">
-              <div className="stat-value">{formatEther(totalRevenue)} MNT</div>
+              <div className="stat-value">{formatEther(totalRevenue)} CTC</div>
               <div className="stat-label">Total Revenue</div>
             </div>
           </div>
@@ -553,7 +553,7 @@ export const IPPortfolio: React.FC<IPPortfolioProps> = ({
                       <AssetPreview assetId={id} asset={asset} metadata={metadata.get(id)} />
                       <div className="recent-asset-info">
                         <div className="asset-name">{metadata.get(id)?.name || `Asset #${id}`}</div>
-                        <div className="asset-revenue">{formatEther(asset.totalRevenue)} MNT</div>
+                        <div className="asset-revenue">{formatEther(asset.totalRevenue)} CTC</div>
                       </div>
                     </div>
                   ))}
@@ -567,7 +567,7 @@ export const IPPortfolio: React.FC<IPPortfolioProps> = ({
                   <div className="metric">
                     <span className="metric-label">Average Revenue per Asset</span>
                     <span className="metric-value">
-                      {totalAssets > 0 ? formatEther(totalRevenue / BigInt(totalAssets)) : '0'} MNT
+                      {totalAssets > 0 ? formatEther(totalRevenue / BigInt(totalAssets)) : '0'} CTC
                     </span>
                   </div>
                   <div className="metric">
@@ -647,7 +647,7 @@ export const IPPortfolio: React.FC<IPPortfolioProps> = ({
                     <div className="asset-metrics">
                       <div className="metric">
                         <span>💰 Revenue</span>
-                        <span>{formatEther(asset.totalRevenue)} MNT</span>
+                        <span>{formatEther(asset.totalRevenue)} CTC</span>
                       </div>
                       <div className="metric">
                         <span>🎯 Royalty</span>
@@ -747,7 +747,7 @@ export const IPPortfolio: React.FC<IPPortfolioProps> = ({
                   <div className="portfolio-metrics">
                     <div className="metric">
                       <span>💰 Total Value</span>
-                      <span>{formatEther(portfolio.totalValue)} MNT</span>
+                      <span>{formatEther(portfolio.totalValue)} CTC</span>
                     </div>
                     <div className="metric">
                       <span>📅 Created</span>
@@ -792,7 +792,7 @@ export const IPPortfolio: React.FC<IPPortfolioProps> = ({
                           }}
                         ></div>
                       </div>
-                      <div className="bar-value">{formatEther(asset.totalRevenue)} MNT</div>
+                      <div className="bar-value">{formatEther(asset.totalRevenue)} CTC</div>
                     </div>
                   ))}
                 </div>
@@ -809,7 +809,7 @@ export const IPPortfolio: React.FC<IPPortfolioProps> = ({
                         <AssetPreview assetId={id} asset={asset} metadata={metadata.get(id)} />
                         <div className="performance-info">
                           <div className="asset-name">{metadata.get(id)?.name || `Asset #${id}`}</div>
-                          <div className="asset-revenue">{formatEther(asset.totalRevenue)} MNT</div>
+                          <div className="asset-revenue">{formatEther(asset.totalRevenue)} CTC</div>
                         </div>
                       </div>
                     ))}

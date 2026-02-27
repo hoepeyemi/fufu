@@ -46,7 +46,7 @@ export const mintLicense = async (licenseRequest: LicenseRequest) => {
             txHash,
             blockNumber,
             explorerUrl,
-            message: 'License minted successfully on Mantle'
+            message: 'License minted successfully on Creditcoin'
         };
 
         // Convert any BigInt values to strings for JSON serialization
@@ -83,7 +83,7 @@ export const mintLicense = async (licenseRequest: LicenseRequest) => {
         return {
             success: false,
             error: error instanceof Error ? error.message : 'Unknown error occurred',
-            message: 'Failed to mint license on Mantle'
+            message: 'Failed to mint license on Creditcoin'
         };
     }
 };

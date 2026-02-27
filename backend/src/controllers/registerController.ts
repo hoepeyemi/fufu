@@ -47,7 +47,7 @@ const handleRegistration = async (req: Request, res: Response) => {
       });
     }
 
-    // 1. Register on Mantle using Sear contract
+    // 1. Register on Creditcoin using Sear contract
     let txHash: string | null = null;
     let ipAssetId: number | undefined = undefined;
     let blockNumber: bigint | null = null;
@@ -59,7 +59,7 @@ const handleRegistration = async (req: Request, res: Response) => {
       ipAssetId = result.ipAssetId;
       blockNumber = result.blockNumber;
       explorerUrl = result.explorerUrl;
-      console.log("✅ Mantle registration successful:", {
+      console.log("✅ Creditcoin registration successful:", {
         txHash,
         ipAssetId,
         blockNumber,
@@ -226,8 +226,8 @@ const yakoaResponse = await registerToYakoa({
 
       // Determine success message based on Yakoa response
       const successMessage = yakoaResponse.alreadyRegistered 
-        ? 'IP Asset registered on Mantle, already exists in Yakoa'
-        : 'IP Asset successfully registered on Mantle and Yakoa';
+        ? 'IP Asset registered on Creditcoin, already exists in Yakoa'
+        : 'IP Asset successfully registered on Creditcoin and Yakoa';
 
       const responseData = {
         message: successMessage,

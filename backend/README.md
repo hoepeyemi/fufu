@@ -1,10 +1,10 @@
-# Mantle IP Management Backend
+# Creditcoin IP Management Backend
 
-This backend service provides IP (Intellectual Property) management functionality on the Mantle testnet using the Sear smart contract.
+This backend service provides IP (Intellectual Property) management functionality on the Creditcoin testnet using the Sear smart contract.
 
 ## Features
 
-- **IP Registration**: Register IP assets on Mantle testnet using Sear contract
+- **IP Registration**: Register IP assets on Creditcoin testnet using Sear contract
 - **License Minting**: Mint licenses for IP assets with customizable terms
 - **License Validation**: Enforces one license per IP asset (prevents duplicate licenses)
 - **IPFS Integration**: Upload metadata to IPFS for decentralized storage
@@ -18,7 +18,7 @@ Create a `.env` file in the backend directory:
 
 ```env
 WALLET_PRIVATE_KEY=your_private_key_here
-RPC_PROVIDER_URL=https://rpc.sepolia.mantle.xyz
+RPC_PROVIDER_URL=https://rpc.cc3-testnet.creditcoin.network
 NFT_CONTRACT_ADDRESS=optional_nft_contract_address
 ```
 
@@ -32,7 +32,7 @@ NFT_CONTRACT_ADDRESS=optional_nft_contract_address
     "ipHash": "ipfs://Qm...",
     "metadata": "{\"name\":\"IP Asset Name\",\"description\":\"...\",...}",
     "isEncrypted": false,
-    "searContractAddress": "0x2D0456CE5e446ef9C8f513832a0bd361201990Ab",
+    "searContractAddress": "0x44e670d21Fb5da3f87512222B8EDBFb7989477B6",
     "skipContractCall": false
   }
   ```
@@ -58,11 +58,11 @@ NFT_CONTRACT_ADDRESS=optional_nft_contract_address
 
 ## Network Configuration
 
-- **Network**: Mantle Sepolia Testnet
-- **Chain ID**: 5003
-- **RPC URL**: https://rpc.sepolia.mantle.xyz
-- **Explorer**: https://explorer.testnet.mantle.xyz
-- **Native Token**: MNT (used as WIP_TOKEN_ADDRESS)
+- **Network**: Creditcoin Testnet
+- **Chain ID**: 102031
+- **RPC URL**: https://rpc.cc3-testnet.creditcoin.network
+- **Explorer**: https://creditcoin-testnet.blockscout.com/
+- **Native Token**: CTC
 
 ## Smart Contracts
 
@@ -97,8 +97,8 @@ The backend includes automatic retry logic for blockchain transactions:
 
 ## Key Features
 
-1. **Network**: Mantle Sepolia Testnet (Chain ID: 5003)
-2. **Token**: Using native MNT token for transactions
+1. **Network**: Creditcoin Testnet (Chain ID: 102031)
+2. **Token**: Using native CTC token for transactions
 3. **Contracts**: Sear contract for IP management
 4. **License Validation**: Enforces one license per IP asset
 5. **Transaction Reliability**: Automatic retry with nonce management
@@ -110,4 +110,4 @@ The backend includes automatic retry logic for blockchain transactions:
 - ✅ Added license validation (one license per IP)
 - ✅ Improved nonce handling with retry logic
 - ✅ Enhanced error messages and user feedback
-- ✅ Updated contract address to V2 (0x2D0456CE5e446ef9C8f513832a0bd361201990Ab) 
+- ✅ Updated contract address (0x44e670d21Fb5da3f87512222B8EDBFb7989477B6) 

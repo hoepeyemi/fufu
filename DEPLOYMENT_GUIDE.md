@@ -2,8 +2,10 @@
 
 ## Current Contract Status
 
-The application is currently using the V2 contract:
-- **V2 Contract**: `0x2D0456CE5e446ef9C8f513832a0bd361201990Ab`
+The application is currently using the deployed contract:
+- **ModredIP**: `0x44e670d21Fb5da3f87512222B8EDBFb7989477B6`
+- **ERC6551Registry**: `0x5829940874605d61496CE818914B972c507E55c7`
+- **ERC6551Account**: `0x0734d90FA1857C073c4bf1e57f4F4151BE2e9f82`
 - **Contract Key**: `ModredIPModule#ModredIP` (maintained for compatibility)
 - **Status**: ✅ Active and verified to have `registerIP` function
 
@@ -25,11 +27,11 @@ The application is currently using the V2 contract:
    DEPLOYER_PRIVATE_KEY=your_private_key_here
    ```
 
-### Deploy to Mantle Sepolia Testnet
+### Deploy to Creditcoin Testnet
 
 1. **Deploy using Hardhat Ignition:**
    ```bash
-   npx hardhat ignition deploy ignition/modules/Sear.ts --network mantleTestnet
+   npx hardhat ignition deploy ignition/modules/ModredIP.ts --network creditcoinTestnet
    ```
 
 2. **After deployment**, update `app/src/deployed_addresses.json`:
@@ -44,12 +46,12 @@ The application is currently using the V2 contract:
 
 3. **Verify the contract** (optional):
    ```bash
-   npx hardhat verify --network mantleTestnet DEPLOYED_ADDRESS "REGISTRY_ADDRESS" "ACCOUNT_IMPL_ADDRESS" 5003 "PLATFORM_FEE_COLLECTOR"
+   npx hardhat verify --network creditcoinTestnet DEPLOYED_ADDRESS "REGISTRY_ADDRESS" "ACCOUNT_IMPL_ADDRESS" 102031 "PLATFORM_FEE_COLLECTOR"
    ```
 
 ### Deployment Steps
 
-1. Make sure you have MNT tokens in your deployer wallet for gas fees
+1. Make sure you have CTC tokens in your deployer wallet for gas fees
 2. Run the deployment command above
 3. Copy the deployed contract address from the output
 4. Update `deployed_addresses.json` with the new address
@@ -73,7 +75,7 @@ If you just want to test IPFS uploads without contract registration:
 
 To check if a contract has the `registerIP` function:
 
-1. Visit: https://explorer.testnet.mantle.xyz/address/CONTRACT_ADDRESS
+1. Visit: https://creditcoin-testnet.blockscout.com/address/CONTRACT_ADDRESS
 2. Go to the "Contract" tab
 3. Check the "Read Contract" or "Write Contract" section
 4. Look for `registerIP` function

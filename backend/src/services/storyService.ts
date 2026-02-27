@@ -5,7 +5,7 @@ import { uploadJSONToIPFS } from '../utils/functions/uploadToIpfs';
 import { createHash } from 'crypto';
 import { Address, Hash } from 'viem';
 
-// IP Metadata interface for Mantle
+// IP Metadata interface for chain
 export interface IpMetadata {
     name: string;
     description: string;
@@ -302,7 +302,7 @@ export const registerIpWithMantle = async (
             throw new Error('Transaction failed: No transaction hash received');
         } catch (error: any) {
             lastError = error;
-            console.error(`❌ Error registering IP with Mantle (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);
+            console.error(`❌ Error registering IP on chain (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);
             
             // Check if it's a nonce-related error (check nested cause chain)
             const checkNonceError = (err: any, depth: number = 0): boolean => {
@@ -320,7 +320,7 @@ export const registerIpWithMantle = async (
                                name.includes('nonce') ||
                                name.includes('noncetoolow');
                 
-                // Check for HTTP 410 errors related to pending blockTag (Mantle RPC limitation)
+                // Check for HTTP 410 errors related to pending blockTag (RPC limitation)
                 const isPendingBlockTagError = status === 410 && 
                                               (bodyStr.includes('pending') || 
                                                bodyStr.includes('eth_getTransactionCount') ||
@@ -483,7 +483,7 @@ export const mintLicenseOnMantle = async (
             throw new Error('Transaction failed: No transaction hash received');
         } catch (error: any) {
             lastError = error;
-            console.error(`❌ Error minting license on Mantle (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);
+            console.error(`❌ Error minting license on chain (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);
             
             // Check if it's a nonce-related error (check nested cause chain)
             const checkNonceError = (err: any, depth: number = 0): boolean => {
@@ -501,7 +501,7 @@ export const mintLicenseOnMantle = async (
                                name.includes('nonce') ||
                                name.includes('noncetoolow');
                 
-                // Check for HTTP 410 errors related to pending blockTag (Mantle RPC limitation)
+                // Check for HTTP 410 errors related to pending blockTag (RPC limitation)
                 const isPendingBlockTagError = status === 410 && 
                                               (bodyStr.includes('pending') || 
                                                bodyStr.includes('eth_getTransactionCount') ||

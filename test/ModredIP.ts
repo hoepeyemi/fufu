@@ -40,7 +40,7 @@ describe("ModredIP", function () {
     const modredIP = await hre.viem.deployContract("ModredIP", [
       registry.address,
       accountImplementation.address,
-      5003n, // Mantle Sepolia testnet chain ID
+      102031n, // Creditcoin Testnet chain ID
       feeCollector.account.address
     ]);
 

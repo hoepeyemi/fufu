@@ -13,14 +13,14 @@ const account = privateKeyToAccount(`0x${deployerPrivateKey.replace(/^0x/, '')}`
 
 const publicClient = createPublicClient({
   chain: {
-    id: 5003,
-    name: 'Mantle Sepolia Testnet',
-    nativeCurrency: { name: 'MNT', symbol: 'MNT', decimals: 18 },
+    id: 102031,
+    name: 'Creditcoin Testnet',
+    nativeCurrency: { name: 'CTC', symbol: 'CTC', decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://mantle-sepolia.drpc.org'] },
+      default: { http: ['https://rpc.cc3-testnet.creditcoin.network'] },
     },
   },
-  transport: http('https://mantle-sepolia.drpc.org'),
+  transport: http('https://rpc.cc3-testnet.creditcoin.network'),
 });
 
 async function checkNonce() {
@@ -51,7 +51,7 @@ async function checkNonce() {
       console.log('   Please wait for them to be confirmed before deploying again.');
       console.log('');
       console.log('💡 Check your transactions at:');
-      console.log(`   https://explorer.testnet.mantle.xyz/address/${account.address}`);
+      console.log(`   https://creditcoin-testnet.blockscout.com/address/${account.address}`);
     } else {
       console.log('✅ No pending transactions. Safe to deploy!');
     }

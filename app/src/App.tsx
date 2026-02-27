@@ -29,27 +29,27 @@ type ContractAddresses = {
 
 const CONTRACT_ADDRESSES = CONTRACT_ADDRESS_JSON as ContractAddresses;
 
-// Custom Mantle Sepolia Testnet chain definition with official RPC URL
-const mantleTestnet = {
-  id: 5003,
-  name: "Mantle Sepolia Testnet",
+// Creditcoin Testnet chain definition
+const creditcoinTestnet = {
+  id: 102031,
+  name: "Creditcoin Testnet",
   nativeCurrency: {
-    name: "MNT",
-    symbol: "MNT",
+    name: "CTC",
+    symbol: "CTC",
     decimals: 18,
   },
   rpcUrls: {
     default: {
-      http: ["https://mantle-sepolia.drpc.org"],
+      http: ["https://rpc.cc3-testnet.creditcoin.network"],
     },
     public: {
-      http: ["https://mantle-sepolia.drpc.org"],
+      http: ["https://rpc.cc3-testnet.creditcoin.network"],
     },
   },
   blockExplorers: {
     default: {
-      name: "Mantle Testnet Explorer",
-      url: "https://explorer.testnet.mantle.xyz",
+      name: "Creditcoin Testnet Explorer",
+      url: "https://creditcoin-testnet.blockscout.com/",
     },
   },
   testnet: true,
@@ -1060,7 +1060,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -1368,7 +1368,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
           client: thirdwebClient,
-          chain: defineChain(mantleTestnet.id),
+          chain: defineChain(creditcoinTestnet.id),
         address: contractAddress,
       });
 
@@ -1576,8 +1576,8 @@ export default function App({ thirdwebClient }: AppProps) {
         file_extension: ipFile?.name?.split('.').pop() || 'unknown',
         upload_timestamp: new Date().toISOString(),
         // Blockchain metadata
-        network: 'mantle',
-        chain_id: '5003',
+        network: 'creditcoin',
+        chain_id: '102031',
         contract_address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
         // Infringement detection metadata
         monitoring_enabled: true,
@@ -1663,7 +1663,7 @@ export default function App({ thirdwebClient }: AppProps) {
         {
           action: {
             label: 'View Transaction',
-            onClick: () => window.open(`https://explorer.testnet.mantle.xyz/tx/${result.mantle.txHash}`, '_blank')
+            onClick: () => window.open(`https://creditcoin-testnet.blockscout.com/tx/${result.mantle.txHash}`, '_blank')
           }
         }
       );
@@ -1793,7 +1793,7 @@ export default function App({ thirdwebClient }: AppProps) {
         {
           action: {
             label: 'View Transaction',
-            onClick: () => window.open(`https://explorer.testnet.mantle.xyz/tx/${result.data.txHash}`, '_blank')
+            onClick: () => window.open(`https://creditcoin-testnet.blockscout.com/tx/${result.data.txHash}`, '_blank')
           }
         }
       );
@@ -1877,7 +1877,7 @@ export default function App({ thirdwebClient }: AppProps) {
         const contract = getContract({
         abi: SEAR_ABI,
           client: thirdwebClient,
-          chain: defineChain(mantleTestnet.id),
+          chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
         });
 
@@ -1895,7 +1895,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
           client: thirdwebClient,
-          chain: defineChain(mantleTestnet.id),
+          chain: defineChain(creditcoinTestnet.id),
           transactionHash: transaction.transactionHash,
         });
 
@@ -1958,7 +1958,7 @@ export default function App({ thirdwebClient }: AppProps) {
         const contract = getContract({
         abi: SEAR_ABI,
           client: thirdwebClient,
-          chain: defineChain(mantleTestnet.id),
+          chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
         });
 
@@ -1975,7 +1975,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2040,7 +2040,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2057,7 +2057,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2096,7 +2096,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2114,7 +2114,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2141,7 +2141,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2195,7 +2195,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2242,7 +2242,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2259,7 +2259,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2299,7 +2299,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2316,7 +2316,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2377,7 +2377,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2447,7 +2447,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2484,7 +2484,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2501,7 +2501,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2539,7 +2539,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2556,7 +2556,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2579,7 +2579,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: SEAR_ABI,
         client: thirdwebClient,
-        chain: defineChain(mantleTestnet.id),
+        chain: defineChain(creditcoinTestnet.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2915,7 +2915,7 @@ export default function App({ thirdwebClient }: AppProps) {
               <ConnectButton
                 client={thirdwebClient}
                 wallets={wallets}
-                chain={defineChain(mantleTestnet.id)}
+                chain={defineChain(creditcoinTestnet.id)}
               />
             </div>
           </div>
@@ -2924,7 +2924,7 @@ export default function App({ thirdwebClient }: AppProps) {
         <main className="landing">
           <div className="landing-hero">
             <div className="landing-hero-bg" aria-hidden="true" />
-            <div className="landing-badge">IP on-chain • Mantle • ERC-6551</div>
+            <div className="landing-badge">IP on-chain • Creditcoin • ERC-6551</div>
             <div className="landing-hero-grid">
               <div className="landing-hero-copy">
                 <h2 className="landing-title">
@@ -2938,7 +2938,7 @@ export default function App({ thirdwebClient }: AppProps) {
                     <ConnectButton
                       client={thirdwebClient}
                       wallets={wallets}
-                      chain={defineChain(mantleTestnet.id)}
+                      chain={defineChain(creditcoinTestnet.id)}
                     />
                   </div>
                   <button className="btn btn-secondary landing-cta-secondary" onClick={checkBackendStatus}>
@@ -2961,7 +2961,7 @@ export default function App({ thirdwebClient }: AppProps) {
                     <div className="stat-label">IP accounts</div>
                   </div>
                   <div className="stat">
-                    <div className="stat-value">Mantle</div>
+                    <div className="stat-value">Creditcoin</div>
                     <div className="stat-label">Network</div>
                   </div>
                 </div>
@@ -3088,7 +3088,7 @@ export default function App({ thirdwebClient }: AppProps) {
           </section>
 
           <footer className="landing-footer">
-            <p>Built on Mantle • Powered by ERC-6551 token-bound accounts</p>
+            <p>Built on Creditcoin • Powered by ERC-6551 token-bound accounts</p>
           </footer>
         </main>
       </div>
@@ -3117,7 +3117,7 @@ export default function App({ thirdwebClient }: AppProps) {
             <ConnectButton
               client={thirdwebClient}
               wallets={wallets}
-              chain={defineChain(mantleTestnet.id)}
+              chain={defineChain(creditcoinTestnet.id)}
             />
           </div>
         </div>

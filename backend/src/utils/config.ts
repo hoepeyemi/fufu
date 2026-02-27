@@ -4,27 +4,27 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-// Mantle Sepolia testnet configuration
-const mantleTestnet: Chain = {
-  id: 5003,
-  name: 'Mantle Sepolia Testnet',
+// Creditcoin Testnet configuration
+const creditcoinTestnet: Chain = {
+  id: 102031,
+  name: 'Creditcoin Testnet',
   nativeCurrency: {
-    name: 'MNT',
-    symbol: 'MNT',
+    name: 'CTC',
+    symbol: 'CTC',
     decimals: 18,
   },
   rpcUrls: {
     default: {
-      http: ['https://mantle-sepolia.drpc.org'],
+      http: ['https://rpc.cc3-testnet.creditcoin.network'],
     },
     public: {
-      http: ['https://mantle-sepolia.drpc.org'],
+      http: ['https://rpc.cc3-testnet.creditcoin.network'],
     },
   },
   blockExplorers: {
     default: {
-      name: 'Mantle Testnet Explorer',
-      url: 'https://explorer.testnet.mantle.xyz',
+      name: 'Creditcoin Testnet Explorer',
+      url: 'https://creditcoin-testnet.blockscout.com/',
     },
   },
 }
@@ -38,10 +38,10 @@ interface NetworkConfig {
 
 // Network configuration
 const networkConfig: NetworkConfig = {
-    rpcProviderUrl: 'https://mantle-sepolia.drpc.org',
-    blockExplorer: 'https://explorer.testnet.mantle.xyz',
-    chain: mantleTestnet,
-    nativeTokenAddress: '0x0000000000000000000000000000000000000000' as Address, // Native MNT token
+    rpcProviderUrl: 'https://rpc.cc3-testnet.creditcoin.network',
+    blockExplorer: 'https://creditcoin-testnet.blockscout.com/',
+    chain: creditcoinTestnet,
+    nativeTokenAddress: '0x0000000000000000000000000000000000000000' as Address, // Native CTC token
 }
 
 // Helper functions

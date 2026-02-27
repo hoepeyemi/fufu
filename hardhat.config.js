@@ -10,37 +10,37 @@ const deployerPrivateKey = config_1.vars.get("DEPLOYER_PRIVATE_KEY");
 const config = {
     solidity: "0.8.24",
     networks: {
-        mantleMainnet: {
-            url: "https://rpc.mantle.xyz",
+        creditcoinMainnet: {
+            url: "https://mainnet3.creditcoin.network",
             accounts: [deployerPrivateKey],
             timeout: 120000, // 120 seconds
         },
-        mantleTestnet: {
-            url: "https://mantle-sepolia.drpc.org",
+        creditcoinTestnet: {
+            url: "https://rpc.cc3-testnet.creditcoin.network",
             accounts: [deployerPrivateKey],
             timeout: 120000, // 120 seconds
         },
     },
     etherscan: {
         apiKey: {
-            mantleMainnet: "YOU_CAN_COPY_ME",
-            mantleTestnet: "YOU_CAN_COPY_ME",
+            creditcoinMainnet: "YOU_CAN_COPY_ME",
+            creditcoinTestnet: "YOU_CAN_COPY_ME",
         },
         customChains: [
             {
-                network: "mantleMainnet",
-                chainId: 5000,
+                network: "creditcoinMainnet",
+                chainId: 102030,
                 urls: {
-                    apiURL: "https://explorer.mantle.xyz/api",
-                    browserURL: "https://explorer.mantle.xyz",
+                    apiURL: "https://creditcoin.blockscout.com/api",
+                    browserURL: "https://creditcoin.blockscout.com/",
                 },
             },
             {
-                network: "mantleTestnet",
-                chainId: 5003,
+                network: "creditcoinTestnet",
+                chainId: 102031,
                 urls: {
-                    apiURL: "https://explorer.testnet.mantle.xyz/api",
-                    browserURL: "https://explorer.testnet.mantle.xyz",
+                    apiURL: "https://creditcoin-testnet.blockscout.com/api",
+                    browserURL: "https://creditcoin-testnet.blockscout.com/",
                 },
             },
         ],

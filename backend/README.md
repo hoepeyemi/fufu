@@ -2,8 +2,6 @@
 
 This backend service provides IP (Intellectual Property) management functionality on the Creditcoin testnet using the Fufu smart contract.
 
-For a full implementation summary (network config, RPC behavior, APIs, deployment), see the root [README Implementation Summary](../README.md#-implementation-summary).
-
 ## Features
 
 - **IP Registration**: Register IP assets on Creditcoin testnet using Fufu contract
@@ -109,9 +107,7 @@ The backend includes automatic retry logic for blockchain transactions:
 ## Recent Updates
 
 - ✅ Application branded as "Fufu" (contract key ModredIPModule#ModredIP kept for compatibility)
-- ✅ Creditcoin-only RPC: uses default Creditcoin RPC when `RPC_PROVIDER_URL` is unset or points to another network
-- ✅ Registration on Creditcoin: simulation fallback (no-data → direct `writeContract`) for reliable txs
-- ✅ Startup log: prints RPC host and chain ID
-- ✅ License validation (one license per IP)
-- ✅ Nonce handling and retry logic
-- ✅ Contract address (0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40) 
+- ✅ Added license validation (one license per IP)
+- ✅ Improved nonce handling with retry logic
+- ✅ Enhanced error messages and user feedback
+- ✅ Updated contract address (0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40) 

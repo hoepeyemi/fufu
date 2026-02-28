@@ -2,8 +2,6 @@
 
 A React-based frontend for the Fufu intellectual property management system on Creditcoin.
 
-For a full implementation summary (contracts, backend APIs, branding, infringement, deployment), see the root [README Implementation Summary](../README.md#-implementation-summary).
-
 ## Features
 
 ### 1. Register IP Asset

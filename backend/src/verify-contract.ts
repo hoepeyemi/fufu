@@ -1,8 +1,8 @@
 import { publicClient, account } from './utils/config';
 import { Address, encodeFunctionData } from 'viem';
 
-// Sear contract ABI (simplified for IP registration)
-const SEAR_ABI = [
+// Fufu contract ABI (simplified for IP registration)
+const FUFU_ABI = [
     {
         "inputs": [
             {
@@ -54,7 +54,7 @@ async function verifyContract(contractAddress: Address, contractName: string) {
         // 2. Try to encode the function call
         try {
             const functionData = encodeFunctionData({
-                abi: SEAR_ABI,
+                abi: FUFU_ABI,
                 functionName: 'registerIP',
                 args: ['ipfs://test', '{"test":"data"}', false],
             });
@@ -68,7 +68,7 @@ async function verifyContract(contractAddress: Address, contractName: string) {
         try {
             const gasEstimate = await publicClient.estimateContractGas({
                 address: contractAddress,
-                abi: SEAR_ABI,
+                abi: FUFU_ABI,
                 functionName: 'registerIP',
                 args: ['ipfs://test', '{"test":"data"}', false],
                 account: account.address,
@@ -103,8 +103,8 @@ async function main() {
     const v1Address = '0x0734d90FA1857C073c4bf1e57f4F4151BE2e9f82' as Address;
     const v2Address = '0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40' as Address; // ModredIPModule#ModredIP
 
-    const v1HasFunction = await verifyContract(v1Address, 'Sear Module V1');
-    const v2HasFunction = await verifyContract(v2Address, 'Sear Module V2');
+    const v1HasFunction = await verifyContract(v1Address, 'Fufu Module V1');
+    const v2HasFunction = await verifyContract(v2Address, 'Fufu Module V2');
 
     console.log('\n' + '='.repeat(60));
     console.log('\n📊 SUMMARY:');

@@ -392,8 +392,8 @@ export const mintLicenseOnCreditcoin = async (
                                     continue;
                                 }
                             }
-                        } catch (searchError) {
-                            console.log(`⚠️ Could not find transaction hash:`, searchError);
+                        } catch (txLookupError) {
+                            console.log(`⚠️ Could not find transaction hash:`, txLookupError);
                         }
                         
                         // If we still don't have a hash, throw the error to trigger retry logic

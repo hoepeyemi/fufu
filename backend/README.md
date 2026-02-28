@@ -1,10 +1,10 @@
 # Creditcoin IP Management Backend
 
-This backend service provides IP (Intellectual Property) management functionality on the Creditcoin testnet using the Sear smart contract.
+This backend service provides IP (Intellectual Property) management functionality on the Creditcoin testnet using the Fufu smart contract.
 
 ## Features
 
-- **IP Registration**: Register IP assets on Creditcoin testnet using Sear contract
+- **IP Registration**: Register IP assets on Creditcoin testnet using Fufu contract
 - **License Minting**: Mint licenses for IP assets with customizable terms
 - **License Validation**: Enforces one license per IP asset (prevents duplicate licenses)
 - **IPFS Integration**: Upload metadata to IPFS for decentralized storage
@@ -32,7 +32,7 @@ NFT_CONTRACT_ADDRESS=optional_nft_contract_address
     "ipHash": "ipfs://Qm...",
     "metadata": "{\"name\":\"IP Asset Name\",\"description\":\"...\",...}",
     "isEncrypted": false,
-    "searContractAddress": "0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40",
+    "fufuContractAddress": "0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40",
     "skipContractCall": false
   }
   ```
@@ -49,7 +49,7 @@ NFT_CONTRACT_ADDRESS=optional_nft_contract_address
     "duration": 86400,
     "commercialUse": true,
     "terms": "{\"transferable\":true,\"commercialAttribution\":true,...}",
-    "searContractAddress": "0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40"
+    "fufuContractAddress": "0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40"
   }
   ```
 - **Validation**: Automatically checks if a license already exists for the IP asset
@@ -66,7 +66,7 @@ NFT_CONTRACT_ADDRESS=optional_nft_contract_address
 
 ## Smart Contracts
 
-- **Sear**: Main contract for IP registration and license management
+- **Fufu**: Main contract for IP registration and license management
 - **ERC6551Registry**: Token-bound account registry
 - **ERC6551Account**: Token-bound account implementation
 
@@ -99,14 +99,14 @@ The backend includes automatic retry logic for blockchain transactions:
 
 1. **Network**: Creditcoin Testnet (Chain ID: 102031)
 2. **Token**: Using native CTC token for transactions
-3. **Contracts**: Sear contract for IP management
+3. **Contracts**: Fufu contract for IP management
 4. **License Validation**: Enforces one license per IP asset
 5. **Transaction Reliability**: Automatic retry with nonce management
 6. **Error Handling**: Comprehensive error messages and recovery
 
 ## Recent Updates
 
-- ✅ Renamed from "ModredIP" to "Sear" throughout the codebase
+- ✅ Application branded as "Fufu" (contract key ModredIPModule#ModredIP kept for compatibility)
 - ✅ Added license validation (one license per IP)
 - ✅ Improved nonce handling with retry logic
 - ✅ Enhanced error messages and user feedback

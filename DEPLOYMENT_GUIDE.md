@@ -3,11 +3,11 @@
 ## Current Contract Status
 
 The application is currently using the V2 contract:
-- **ModredIP (Sear)**: `0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40`
+- **ModredIP (Fufu)**: `0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40`
 - **Contract Key**: `ModredIPModule#ModredIP` (maintained for compatibility)
 - **Status**: ✅ Active and verified to have `registerIP` function
 
-**Note**: The contract key name "ModredIPModule#ModredIP" is maintained for backward compatibility, but the application is branded as "Sear".
+**Note**: The contract key name "ModredIPModule#ModredIP" is maintained for backward compatibility, but the application is branded as "Fufu".
 
 ## Option 2: Deploy a New Contract
 
@@ -40,7 +40,7 @@ The application is currently using the V2 contract:
    }
    ```
    
-   **Note**: The key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Sear".
+   **Note**: The key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Fufu".
 
 3. **Verify the contract** (optional):
    ```bash

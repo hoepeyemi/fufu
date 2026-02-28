@@ -1,12 +1,12 @@
-# Sear Frontend
+# Fufu Frontend
 
-A React-based frontend for the Sear intellectual property management system on Creditcoin.
+A React-based frontend for the Fufu intellectual property management system on Creditcoin.
 
 ## Features
 
 ### 1. Register IP Asset
 - Mint an NFT representing ownership of your intellectual property
-- Register the NFT as an IP Asset on the Sear system
+- Register the NFT as an IP Asset on the Fufu system
 - Upload IP content and metadata to IPFS
 - Set encryption flags for sensitive content
 
@@ -141,7 +141,7 @@ A React-based frontend for the Sear intellectual property management system on C
 ## Technical Details
 
 - **Blockchain**: Creditcoin Testnet (Chain ID: 102031)
-- **Smart Contract**: Sear.sol
+- **Smart Contract**: ModredIP (Fufu)
 - **Wallet Integration**: Thirdweb SDK
 - **IPFS**: Used for storing IP content, metadata, and license terms
 - **ERC-6551**: Token-bound accounts for IP management
@@ -149,11 +149,11 @@ A React-based frontend for the Sear intellectual property management system on C
 ## Contract Addresses
 
 Current deployed contract addresses are stored in `src/deployed_addresses.json`:
-- **ModredIP (Sear)**: `0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40` (ModredIPModule#ModredIP)
+- **ModredIP (Fufu)**: `0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40` (ModredIPModule#ModredIP)
 - **ERC6551Registry**: `0xE9053cD4c52039C79b1ED2708558eCcdd8Cc6706`
 - **ERC6551Account**: `0x9be86cb3691785f591DE11aa398863B89241B677`
 
-**Note**: The contract key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Sear".
+**Note**: The contract key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Fufu".
 
 ## Security Features
 

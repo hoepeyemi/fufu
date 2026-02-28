@@ -29,6 +29,9 @@ type ContractAddresses = {
 
 const CONTRACT_ADDRESSES = CONTRACT_ADDRESS_JSON as ContractAddresses;
 
+/** Logo & favicon: app/public/fufu.png (Vite serves public assets at root) */
+const LOGO_FAVICON_URL = "/fufu.png";
+
 // Creditcoin Testnet chain definition
 const creditcoinTestnet = {
   id: 102031,
@@ -2930,7 +2933,7 @@ export default function App({ thirdwebClient }: AppProps) {
         <header className="header">
           <div className="header-container">
             <div className="header-logo">
-              <img src="/fufu.png" alt="Fufu" className="logo-image" />
+              <img src={LOGO_FAVICON_URL} alt="Fufu" className="logo-image" />
               <h1>Fufu</h1>
             </div>
             <div className="header-actions">
@@ -3132,7 +3135,7 @@ export default function App({ thirdwebClient }: AppProps) {
       <header className="header">
         <div className="header-container">
           <div className="header-logo">
-            <img src="/fufu.png" alt="Fufu" className="logo-image" />
+            <img src={LOGO_FAVICON_URL} alt="Fufu" className="logo-image" />
             <h1>Fufu</h1>
           </div>
           <div className="header-actions">

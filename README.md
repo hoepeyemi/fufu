@@ -56,6 +56,7 @@ A submission without a demo video link will not be scored.
 - [Project Demo Link](#project-demo-link)
 - [Pitch Deck](#pitch-deck)
 - [Project Demo Video](#project-demo-video)
+- [📦 Implementation Summary](#-implementation-summary)
 - [🎯 Vision & Mission](#-vision--mission)
 - [💼 Business Model](#-business-model)
 - [🏗️ Technology Stack](#️-technology-stack)
@@ -66,6 +67,65 @@ A submission without a demo video link will not be scored.
 - [🗺️ Roadmap](#️-roadmap)
 - [💰 Revenue Streams](#-revenue-streams)
 - [🔮 Future Vision](#-future-vision)
+- [🚀 Get Started](#-get-started)
+
+---
+
+## 📦 Implementation Summary
+
+This section documents the current implementation state of the Fufu platform.
+
+### Branding & Assets
+- **Application name**: Fufu (renamed from Sear throughout the codebase).
+- **Logo & favicon**: Sourced from `app/public/fufu.png`; referenced as `/fufu.png` in HTML and via `LOGO_FAVICON_URL` in the frontend. Used for favicon, apple-touch-icon, Open Graph, and Twitter card images.
+- **Contract key**: `ModredIPModule#ModredIP` is kept in config and JSON for compatibility; the user-facing product name is Fufu.
+
+### Network & Blockchain
+- **Network**: Creditcoin Testnet only (Chain ID: 102031).
+- **RPC**: Default `https://rpc.cc3-testnet.creditcoin.network`. Backend uses this when `RPC_PROVIDER_URL` is unset or points to another network, so transactions always go to Creditcoin.
+- **Native token**: CTC. All fees and royalties are in CTC.
+- **Explorer**: https://creditcoin-testnet.blockscout.com/
+
+### Smart Contracts
+- **Deployment**: Hardhat Ignition; Solidity optimizer enabled with `runs: 1` for reliable deployment.
+- **Deployed addresses** (Creditcoin Testnet):
+  - **ModredIP (Fufu)**: `0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40`
+  - **ERC6551Registry**: `0xE9053cD4c52039C79b1ED2708558eCcdd8Cc6706`
+  - **ERC6551Account**: `0x9be86cb3691785f591DE11aa398863B89241B677`
+- **Address config**: Canonical list in `ignition/deployments/chain-102031/deployed_addresses.json`; app uses `app/src/deployed_addresses.json` (postinstall can copy from ignition). Backend reads contract address from request body (`fufuContractAddress`).
+
+### Backend
+- **Stack**: Node.js, TypeScript, Express, Viem. Runs with `ts-node` (e.g. `yarn start`).
+- **APIs**:
+  - **POST `/api/register`**: Registers IP on Creditcoin (and optionally Yakoa). Body: `ipHash`, `metadata`, `isEncrypted`, `fufuContractAddress`, optional `skipContractCall`. Legacy `modredIpContractAddress` supported.
+  - **POST `/api/license/mint`**: Mints a license. Body: `tokenId`, `royaltyPercentage`, `duration`, `commercialUse`, `terms`, `fufuContractAddress`. Enforces one license per IP.
+  - **GET `/api/infringement/status/:contractAddress/:tokenId`**: Returns Yakoa infringement status for an IP asset.
+- **Creditcoin behavior**: When simulation returns no data (common on Creditcoin RPC), backend skips simulation and calls `writeContract` directly with the same args and correct chain.
+- **Config**: `.env` in backend root; required: `WALLET_PRIVATE_KEY`, `PINATA_JWT`; optional: `RPC_PROVIDER_URL` (only used if URL contains "creditcoin"), Yakoa vars for registration and infringement. Startup logs the RPC host and chain ID.
+- **Transaction reliability**: Nonce handling, retries (e.g. 3 attempts) with backoff, and clear error messages.
+
+### Frontend
+- **Stack**: React 18, TypeScript, Vite, Thirdweb SDK, custom CSS.
+- **Backend URL**: Configured as `http://localhost:5000`; all register, license, and infringement calls go to this backend.
+- **Env**: `VITE_PINATA_JWT` for IPFS uploads (e.g. in `app/.env`). Thirdweb client ID in `src/main.tsx` (or env) for wallet connect.
+- **Contract addresses**: Loaded from `app/src/deployed_addresses.json`; key `ModredIPModule#ModredIP` for the Fufu contract.
+- **Infringement**: Infringement status is auto-loaded when the dashboard loads and IP assets are fetched (one request per asset with a short delay). Each card shows a "Checking…" state while loading, then "Clean" or "X Found" with severity. Manual "Check Status" button still available; toasts only on manual check.
+
+### Yakoa Integration
+- **Registration**: Backend can register IPs with Yakoa (metadata, authorizations) when handling `/api/register`.
+- **Infringement**: Backend resolves `contractAddress:tokenId` to Yakoa token ID and returns infringement data (in-network, external, totals, severity). Frontend displays this on the dashboard and on the Infringement tab.
+
+### Deployment & CI
+- **Contract deploy**: From repo root, `npx hardhat ignition deploy ignition/modules/ModredIP.ts --network creditcoinTestnet`. Update `deployed_addresses.json` (or run app postinstall) after deploy. See `DEPLOYMENT_GUIDE.md`.
+- **Docker/CI**: GitHub Actions build and push image as `fufu:latest`; deploy script expects backend `.env` at `/home/ubuntu/fufu/.env` and runs container named `fufu` on the server.
+
+### Project Structure (relevant paths)
+- `app/` – React frontend (Vite); `app/public/fufu.png` logo; `app/src/deployed_addresses.json` addresses.
+- `backend/` – Express API; `backend/src/utils/config.ts` network/RPC; `backend/.env` secrets.
+- `ignition/` – Hardhat Ignition deploy modules; `ignition/deployments/chain-102031/deployed_addresses.json` canonical addresses.
+- `DEPLOYMENT_GUIDE.md` – Contract deployment and address update steps.
+- `app/README.md` – Frontend features and usage.
+- `backend/README.md` – Backend API and env vars.
 
 ---
 
@@ -379,18 +439,38 @@ The founders experienced firsthand the challenges of IP management:
 
 ## 🚀 Get Started
 
-### Quick Start
-```bash
-# Clone the repository
-git clone https://github.com/your-org/fufu.git
+### Prerequisites
+- Node.js 18+
+- Yarn (or npm)
+- Wallet with Creditcoin Testnet CTC (for gas)
+- [Thirdweb](https://thirdweb.com) client ID (frontend)
+- [Pinata](https://pinata.cloud) JWT (IPFS)
+- Optional: Yakoa API key and subdomain (backend, for registration and infringement)
 
-# Install dependencies
-cd fufu
-npm install
+### Local development
 
-# Start development server
-npm run dev
-```
+1. **Clone and install**
+   ```bash
+   git clone https://github.com/your-org/fufu.git
+   cd fufu
+   yarn install
+   ```
+
+2. **Backend**
+   - Copy `backend/src/.env.example` to `backend/.env` (or create `backend/.env`).
+   - Set at least: `WALLET_PRIVATE_KEY`, `PINATA_JWT`. Optionally set `RPC_PROVIDER_URL` (must contain "creditcoin" to override default), and Yakoa vars if using registration/infringement.
+   - From repo root or `backend/`: `yarn start` (or `cd backend && yarn start`). Server runs at `http://localhost:5000` and logs the RPC host and chain ID.
+
+3. **Frontend**
+   - In `app/`, create `.env` with `VITE_PINATA_JWT=your_pinata_jwt` for IPFS uploads.
+   - Set your Thirdweb client ID in `app/src/main.tsx` (or via env) for wallet connect.
+   - From repo root or `app/`: `yarn dev`. App runs at `http://localhost:5173` (or the port Vite prints) and uses the backend at `http://localhost:5000`.
+
+4. **Connect**
+   - Open the app, connect your wallet (Creditcoin Testnet), and use Register IP, Mint License, Pay Revenue, Claim Royalties, and Infringement from the dashboard. Ensure the backend is running for registration, licensing, and infringement checks.
+
+### Contract addresses
+The app reads addresses from `app/src/deployed_addresses.json`. Current deployed contracts on Creditcoin Testnet are listed in [Implementation Summary](#-implementation-summary). To deploy new contracts, see `DEPLOYMENT_GUIDE.md`.
 
 
 ---

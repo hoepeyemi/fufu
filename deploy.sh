@@ -3,7 +3,7 @@
 # Contract Deployment Script for Creditcoin Testnet
 # Make sure you have DEPLOYER_PRIVATE_KEY set in your environment or .env file
 
-echo "🚀 Deploying ModredIP contract to Creditcoin Testnet..."
+echo "🚀 Deploying contract to Creditcoin Testnet..."
 echo ""
 
 # Check if DEPLOYER_PRIVATE_KEY is set

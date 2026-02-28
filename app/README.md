@@ -149,9 +149,9 @@ A React-based frontend for the Sear intellectual property management system on C
 ## Contract Addresses
 
 Current deployed contract addresses are stored in `src/deployed_addresses.json`:
-- **Sear (ModredIP)**: `0x33d0D9489a91FD1fe6988F7e55a3Fc389872BF6e` (ModredIPModule#ModredIP)
-- **ERC6551Registry**: `0xAafe69050ebc9ACC77F0074d61B6E52211a6AAB6`
-- **ERC6551Account**: `0xD3c4634271343fd91290ac96432f46f6eA8554f6`
+- **ModredIP (Sear)**: `0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40` (ModredIPModule#ModredIP)
+- **ERC6551Registry**: `0xE9053cD4c52039C79b1ED2708558eCcdd8Cc6706`
+- **ERC6551Account**: `0x9be86cb3691785f591DE11aa398863B89241B677`
 
 **Note**: The contract key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Sear".
 

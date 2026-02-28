@@ -188,7 +188,7 @@ const registerIpWithCreditcoin = async (ipHash, metadata, isEncrypted, modredIpC
         }
         catch (error) {
             lastError = error;
-            console.error(`❌ Error registering IP on Creditcoin (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);
+            console.error(`❌ Error registering IP on chain (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);
             // Check if it's a nonce-related error (check nested cause chain)
             const checkNonceError = (err, depth = 0) => {
                 if (!err || depth > 5)
@@ -258,7 +258,7 @@ const mintLicenseOnCreditcoin = async (tokenId, royaltyPercentage, duration, com
         }
         catch (error) {
             lastError = error;
-            console.error(`❌ Error minting license on Creditcoin (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);
+            console.error(`❌ Error minting license on chain (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);
             // Check if it's a nonce-related error (check nested cause chain)
             const checkNonceError = (err, depth = 0) => {
                 if (!err || depth > 5)

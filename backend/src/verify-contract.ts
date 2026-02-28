@@ -100,8 +100,8 @@ async function main() {
     console.log('🔍 Verifying Contracts for registerIP Function\n');
     console.log('=' .repeat(60));
 
-    const v1Address = '0xD3c4634271343fd91290ac96432f46f6eA8554f6' as Address;
-    const v2Address = '0x33d0D9489a91FD1fe6988F7e55a3Fc389872BF6e' as Address;
+    const v1Address = '0x0734d90FA1857C073c4bf1e57f4F4151BE2e9f82' as Address;
+    const v2Address = '0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40' as Address; // ModredIPModule#ModredIP
 
     const v1HasFunction = await verifyContract(v1Address, 'Sear Module V1');
     const v2HasFunction = await verifyContract(v2Address, 'Sear Module V2');
@@ -113,7 +113,7 @@ async function main() {
     
     if (v2HasFunction) {
         console.log('\n💡 RECOMMENDATION: Use V2 contract!');
-        console.log('   Update deployed_addresses.json to use V2 address');
+        console.log('   Update deployed_addresses.json with current ModredIP address');
     } else if (v1HasFunction) {
         console.log('\n💡 RECOMMENDATION: V1 contract works, but V2 is preferred');
     } else {

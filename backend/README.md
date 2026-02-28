@@ -32,7 +32,7 @@ NFT_CONTRACT_ADDRESS=optional_nft_contract_address
     "ipHash": "ipfs://Qm...",
     "metadata": "{\"name\":\"IP Asset Name\",\"description\":\"...\",...}",
     "isEncrypted": false,
-    "searContractAddress": "0x33d0D9489a91FD1fe6988F7e55a3Fc389872BF6e",
+    "searContractAddress": "0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40",
     "skipContractCall": false
   }
   ```
@@ -49,7 +49,7 @@ NFT_CONTRACT_ADDRESS=optional_nft_contract_address
     "duration": 86400,
     "commercialUse": true,
     "terms": "{\"transferable\":true,\"commercialAttribution\":true,...}",
-    "searContractAddress": "0x33d0D9489a91FD1fe6988F7e55a3Fc389872BF6e"
+    "searContractAddress": "0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40"
   }
   ```
 - **Validation**: Automatically checks if a license already exists for the IP asset
@@ -110,4 +110,4 @@ The backend includes automatic retry logic for blockchain transactions:
 - ✅ Added license validation (one license per IP)
 - ✅ Improved nonce handling with retry logic
 - ✅ Enhanced error messages and user feedback
-- ✅ Updated contract address (0x33d0D9489a91FD1fe6988F7e55a3Fc389872BF6e) 
+- ✅ Updated contract address (0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40) 

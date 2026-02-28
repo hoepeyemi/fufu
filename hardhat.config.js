@@ -8,7 +8,15 @@ if (!config_1.vars.has("DEPLOYER_PRIVATE_KEY")) {
 }
 const deployerPrivateKey = config_1.vars.get("DEPLOYER_PRIVATE_KEY");
 const config = {
-    solidity: "0.8.24",
+    solidity: {
+        version: "0.8.24",
+        settings: {
+            optimizer: {
+                enabled: true,
+                runs: 1,
+            },
+        },
+    },
     networks: {
         creditcoinMainnet: {
             url: "https://mainnet3.creditcoin.network",
@@ -19,6 +27,7 @@ const config = {
             url: "https://rpc.cc3-testnet.creditcoin.network",
             accounts: [deployerPrivateKey],
             timeout: 120000, // 120 seconds
+            gas: 30000000, // Creditcoin may need explicit gas for large contract deploys
         },
     },
     etherscan: {

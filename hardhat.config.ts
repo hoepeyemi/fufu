@@ -13,8 +13,10 @@ const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.24",
     settings: {
-      optimizer: { enabled: true, runs: 200 },
-      viaIR: false,
+      optimizer: {
+        enabled: true,
+        runs: 1, // Minimize deployment bytecode size (fits EIP-170 24KB limit on Creditcoin)
+      },
     },
   },
 
@@ -28,8 +30,7 @@ const config: HardhatUserConfig = {
       url: "https://rpc.cc3-testnet.creditcoin.network",
       accounts: [deployerPrivateKey],
       timeout: 120000, // 120 seconds
-      gas: "auto",
-      gasMultiplier: 1.2,
+      gas: 30_000_000, // Creditcoin may need explicit gas for large contract deploys
     },
   },
   etherscan: {

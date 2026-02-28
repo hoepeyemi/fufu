@@ -130,9 +130,13 @@ Sear addresses critical pain points in the current IP management landscape:
 
 ### Infrastructure
 - **Blockchain**: Creditcoin Testnet (Chain ID: 102031)
+- **RPC**: https://rpc.cc3-testnet.creditcoin.network
+- **Explorer**: https://creditcoin-testnet.blockscout.com/
+- **Native token**: CTC
 - **Storage**: IPFS for censorship-resistant content
 - **Monitoring**: Yakoa API for infringement detection
 - **Deployment**: Hardhat Ignition for contract deployment
+- **Contract addresses**: Stored in `app/src/deployed_addresses.json` (canonical copy in `ignition/deployments/chain-102031/deployed_addresses.json`; app postinstall copies from there).
 
 ---
 

@@ -1138,17 +1138,19 @@ export default function App({ thirdwebClient }: AppProps) {
   }
 
   const [infringementData, setInfringementData] = useState<Map<number, InfringementData>>(new Map());
+  const [infringementLoadingIds, setInfringementLoadingIds] = useState<Set<number>>(new Set());
   const [selectedInfringementTokenId, setSelectedInfringementTokenId] = useState<number>(1);
   const autoMonitoringEnabled = true; // Auto-monitoring is always enabled
   const monitoringInterval = 300000; // 5 minutes default
 
   // Load infringement status for an IP asset
-  const loadInfringementStatus = async (tokenId: number) => {
+  const loadInfringementStatus = async (tokenId: number, options?: { silent?: boolean }) => {
     if (!ipAssets.has(tokenId)) {
       console.warn(`IP Asset ${tokenId} not found`);
       return;
     }
 
+    setInfringementLoadingIds((prev) => new Set(prev).add(tokenId));
     try {
       const contractAddress = CONTRACT_ADDRESSES["ModredIPModule#ModredIP"].toLowerCase();
       const response = await fetch(`${BACKEND_URL}/api/infringement/status/${contractAddress}/${tokenId}`);
@@ -1166,21 +1168,28 @@ export default function App({ thirdwebClient }: AppProps) {
         return newMap;
       });
 
-      // Show notification if infringements found
-      if (infringementStatus.totalInfringements > 0) {
-        notifyWarning(
-          'Infringements Detected',
-          `Found ${infringementStatus.totalInfringements} potential infringement(s) for IP Asset #${tokenId}`
-        );
-      } else {
-        notifyInfo('No Infringements', `No infringements detected for IP Asset #${tokenId}`);
+      // Show notification only when not silent (e.g. user clicked "Check Status")
+      if (!options?.silent) {
+        if (infringementStatus.totalInfringements > 0) {
+          notifyWarning(
+            'Infringements Detected',
+            `Found ${infringementStatus.totalInfringements} potential infringement(s) for IP Asset #${tokenId}`
+          );
+        } else {
+          notifyInfo('No Infringements', `No infringements detected for IP Asset #${tokenId}`);
+        }
       }
     } catch (error: any) {
       console.error('Error loading infringement status:', error);
-      // Don't show error for 404s (IP might not be registered in Yakoa yet)
-      if (!error.message?.includes('404')) {
+      if (!options?.silent && !error.message?.includes('404')) {
         notifyError('Infringement Check Failed', error.message || 'Failed to check infringement status');
       }
+    } finally {
+      setInfringementLoadingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(tokenId);
+        return next;
+      });
     }
   };
 
@@ -1509,6 +1518,25 @@ export default function App({ thirdwebClient }: AppProps) {
   useEffect(() => {
     loadContractData();
   }, [account?.address]);
+
+  // Auto-load infringement status for all IP assets when the list is loaded
+  useEffect(() => {
+    const tokenIds = Array.from(ipAssets.keys());
+    if (tokenIds.length === 0) return;
+    let cancelled = false;
+    (async () => {
+      for (const id of tokenIds) {
+        if (cancelled) return;
+        await loadInfringementStatus(id, { silent: true });
+        await new Promise((r) => setTimeout(r, 350));
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // Intentionally depend only on ipAssets so we run once when assets load, not when infringementData updates
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ipAssets]);
 
   // Create standardized NFT metadata
   const createNFTMetadata = async (ipHash: string, name: string, description: string, isEncrypted: boolean) => {
@@ -4620,7 +4648,12 @@ export default function App({ thirdwebClient }: AppProps) {
                     <div className="flex gap-2">
                       {asset.isEncrypted && <span className="badge badge-warning">🔒 Encrypted</span>}
                       {asset.isDisputed && <span className="badge badge-error">⚠️ Disputed</span>}
-                      {infringementData.has(id) && (() => {
+                      {infringementLoadingIds.has(id) && (
+                        <span className="badge" style={{ opacity: 0.9 }} title="Checking infringement...">
+                          ⏳ Checking
+                        </span>
+                      )}
+                      {!infringementLoadingIds.has(id) && infringementData.has(id) && (() => {
                         const infringement = infringementData.get(id)!;
                         if (infringement.totalInfringements > 0) {
                           const severity = calculateSeverity(infringement);
@@ -4696,7 +4729,11 @@ export default function App({ thirdwebClient }: AppProps) {
                     <div className="card-field">
                       <span className="card-field-label">Infringement Status</span>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                        {infringementData.has(id) ? (() => {
+                        {infringementLoadingIds.has(id) ? (
+                          <span className="card-field-value" style={{ fontSize: '0.85rem', opacity: 0.8 }}>
+                            ⏳ Checking...
+                          </span>
+                        ) : infringementData.has(id) ? (() => {
                           const infringement = infringementData.get(id)!;
                           const severity = calculateSeverity(infringement);
                           const hasInfringements = infringement.totalInfringements > 0;

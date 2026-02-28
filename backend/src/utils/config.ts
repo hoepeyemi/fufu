@@ -36,12 +36,21 @@ interface NetworkConfig {
     nativeTokenAddress: Address
 }
 
-// Network configuration
+// Network configuration (Creditcoin Testnet)
 const networkConfig: NetworkConfig = {
     rpcProviderUrl: 'https://rpc.cc3-testnet.creditcoin.network',
     blockExplorer: 'https://creditcoin-testnet.blockscout.com/',
     chain: creditcoinTestnet,
     nativeTokenAddress: '0x0000000000000000000000000000000000000000' as Address, // Native CTC token
+}
+
+// Use RPC_PROVIDER_URL only if it points to Creditcoin; otherwise always use Creditcoin RPC
+// (avoids sending tx to wrong network when .env has an old URL like Base Sepolia)
+function getRpcUrl(): string {
+    const env = process.env.RPC_PROVIDER_URL?.trim()
+    if (!env) return networkConfig.rpcProviderUrl
+    if (env.toLowerCase().includes('creditcoin')) return env
+    return networkConfig.rpcProviderUrl
 }
 
 // Helper functions
@@ -56,7 +65,7 @@ validateEnvironmentVars()
 
 export const networkInfo = {
     ...networkConfig,
-    rpcProviderUrl: process.env.RPC_PROVIDER_URL || networkConfig.rpcProviderUrl,
+    rpcProviderUrl: getRpcUrl(),
 }
 
 export const account: Account = privateKeyToAccount(`0x${process.env.WALLET_PRIVATE_KEY}` as Address)

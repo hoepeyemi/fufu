@@ -108,7 +108,7 @@ async function main() {
     console.log(`V2 Contract (${v2Address.substring(0, 10)}...): ${v2HasFunction ? '✅ HAS registerIP' : '❌ NO registerIP'}`);
     if (v2HasFunction) {
         console.log('\n💡 RECOMMENDATION: Use V2 contract!');
-        console.log('   Update deployed_addresses.json to use V2 address');
+        console.log('   Update deployed_addresses.json with current ModredIP address');
     }
     else if (v1HasFunction) {
         console.log('\n💡 RECOMMENDATION: V1 contract works, but V2 is preferred');

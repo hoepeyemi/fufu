@@ -9,7 +9,7 @@
    $env:DEPLOYER_PRIVATE_KEY = "your_private_key_without_0x_prefix"
    ```
    
-   **Or create a `.env` file** in the `searalt` directory:
+   **Or create a `.env` file** in the project root:
    ```
    DEPLOYER_PRIVATE_KEY=your_private_key_without_0x_prefix
    ```
@@ -18,11 +18,10 @@
 
 ## Step 2: Deploy the Contract
 
-Navigate to the `searalt` directory and run:
+From the **project root** run:
 
 **PowerShell:**
 ```powershell
-cd searalt
 npx hardhat ignition deploy ignition/modules/ModredIP.ts --network creditcoinTestnet
 ```
 
@@ -40,14 +39,14 @@ After deployment, you'll see output like:
 
 1. **Copy the deployed contract address**
 
-2. **Update `app/src/deployed_addresses.json`:**
+2. **Update addresses:** Either copy `ignition/deployments/chain-102031/deployed_addresses.json` to `app/src/deployed_addresses.json`, or run `yarn install` in the `app/` folder (postinstall copies it). Or edit `app/src/deployed_addresses.json`:
    ```json
    {
+     "ModredIPModule#ERC6551Account": "0x...",
+     "ModredIPModule#ERC6551Registry": "0x...",
      "ModredIPModule#ModredIP": "NEW_DEPLOYED_ADDRESS_HERE"
    }
    ```
-
-3. **Also update `ignition/deployments/chain-102031/deployed_addresses.json`** (optional, for reference)
 
 ## Step 4: Restart Services
 

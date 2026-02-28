@@ -169,102 +169,51 @@ export const registerIpWithCreditcoin = async (
         console.log('metadata:', metadata);
         console.log('isEncrypted:', isEncrypted);
 
-        // Register IP on ModredIP contract
-        const { request } = await publicClient.simulateContract({
-            address: modredIpContractAddress,
-            abi: MODRED_IP_ABI,
-            functionName: 'registerIP',
-            args: [
-                ipHash,
-                metadata,
-                isEncrypted
-            ],
-            account: account.address,
-        });
-
-            // Let viem handle nonce automatically - explicitly setting nonce can cause conflicts
-            // when transactions are submitted rapidly, leading to "already known" errors
-            // even though the transaction succeeds
-            let hash: Hash | undefined;
-            try {
-                hash = await walletClient.writeContract({
-            ...request,
-            account: account,
-                    // Don't set nonce - let viem/wallet handle it automatically
-                });
-                console.log(`📊 Transaction submitted with hash: ${hash} (attempt ${attempt + 1}/${maxRetries})`);
-            } catch (writeError: any) {
-                // Sometimes writeContract throws an error even if transaction was submitted
-                // Check if we got a hash despite the error
-                const errorHash = writeError?.hash || writeError?.transactionHash || writeError?.data?.hash;
-                if (errorHash) {
-                    console.log(`⚠️ Got transaction hash despite error: ${errorHash}`);
-                    hash = errorHash as Hash;
-                } else {
-                    // Check if error contains "already known" - transaction was likely submitted
-                    const errorMsg = (writeError?.message || writeError?.shortMessage || writeError?.details || '').toLowerCase();
-                    if (errorMsg.includes('already known')) {
-                        console.log(`⚠️ Transaction "already known" - transaction was likely submitted successfully`);
-                        console.log(`⏳ Waiting 5 seconds to allow transaction to be mined, then checking for receipt...`);
-                        
-                        // Wait a bit for transaction to be mined
-                        await new Promise(resolve => setTimeout(resolve, 5000));
-                        
-                        // Try to find the transaction by checking the account's transaction count
-                        // and looking for the most recent transaction to our contract
-                        try {
-                            // Get the account's transaction count to find the nonce that was used
-                            const txCount = await publicClient.getTransactionCount({
-                                address: account.address,
-                                blockTag: 'latest'
-                            });
-                            
-                            // The transaction that was submitted would have used nonce (txCount - 1) or (txCount - 2)
-                            // Check recent blocks for transactions from our account to our contract
-                            const currentBlock = await publicClient.getBlockNumber();
-                            const blocksToCheck = 20; // Check last 20 blocks
-                            
-                            for (let i = 0; i < blocksToCheck; i++) {
-                                const blockNumber = currentBlock - BigInt(i);
-                                try {
-                                    const block = await publicClient.getBlock({ blockNumber, includeTransactions: true });
-                                    if (block && block.transactions) {
-                                        for (const tx of block.transactions) {
-                                            if (typeof tx === 'object' && 
-                                                tx.from?.toLowerCase() === account.address.toLowerCase() &&
-                                                tx.to?.toLowerCase() === modredIpContractAddress.toLowerCase() &&
-                                                tx.input && tx.input.startsWith('0xb9172466')) { // registerIP function selector
-                                                // Found a matching transaction
-                                                const txHash = tx.hash;
-                                                console.log(`✅ Found matching transaction: ${txHash}`);
-                                                hash = txHash as Hash;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (hash) break;
-                                } catch (blockError) {
-                                    // Continue to next block
-                                    continue;
-                                }
-                            }
-                        } catch (searchError) {
-                            console.log(`⚠️ Could not find transaction hash:`, searchError);
-                        }
-                        
-                        // If we still don't have a hash, throw the error to trigger retry logic
-                        // But log that the transaction was likely successful
-                        if (!hash) {
-                            console.log(`⚠️ Could not find transaction hash, but "already known" suggests it was submitted`);
-                            throw writeError;
-                        }
-                    } else {
-                        throw writeError;
-                    }
+        // Register IP on ModredIP contract. Try simulation first; some RPCs (e.g. Creditcoin) return
+        // "returned no data" for eth_call even when the transaction would succeed, so we fall back
+        // to sending the transaction directly.
+        let hash: Hash | undefined;
+        try {
+            const { request } = await publicClient.simulateContract({
+                address: modredIpContractAddress,
+                abi: MODRED_IP_ABI,
+                functionName: 'registerIP',
+                args: [ipHash, metadata, isEncrypted],
+                account: account.address,
+            });
+            hash = await walletClient.writeContract({
+                ...request,
+                account: account,
+            });
+            console.log(`📊 Transaction submitted with hash: ${hash} (attempt ${attempt + 1}/${maxRetries})`);
+        } catch (simulateOrWriteError: any) {
+            const errMsg = (simulateOrWriteError?.message || simulateOrWriteError?.shortMessage || '').toLowerCase();
+            const isNoData = errMsg.includes('returned no data') || (errMsg.includes('0x') && errMsg.includes('no data'));
+            if (isNoData) {
+                console.log('⚠️ Simulation returned no data (common on Creditcoin). Submitting transaction directly...');
+                try {
+                    hash = await walletClient.writeContract({
+                        address: modredIpContractAddress,
+                        abi: MODRED_IP_ABI,
+                        functionName: 'registerIP',
+                        args: [ipHash, metadata, isEncrypted],
+                        account: account,
+                        chain: networkInfo.chain,
+                    });
+                    console.log(`📊 Transaction submitted (no sim): ${hash} (attempt ${attempt + 1}/${maxRetries})`);
+                } catch (directError: any) {
+                    throw directError;
                 }
+            } else {
+                throw simulateOrWriteError;
             }
+        }
 
-            // If we have a hash, wait for receipt (even if there was an error)
+        if (!hash) {
+            throw new Error('Transaction failed: No transaction hash received');
+        }
+
+            // If we have a hash, wait for receipt
             if (hash) {
                 try {
         const receipt = await publicClient.waitForTransactionReceipt({ hash });
@@ -297,9 +246,6 @@ export const registerIpWithCreditcoin = async (
                     throw receiptError;
                 }
             }
-
-            // If we don't have a hash, throw the original error
-            throw new Error('Transaction failed: No transaction hash received');
         } catch (error: any) {
             lastError = error;
             console.error(`❌ Error registering IP on chain (attempt ${attempt + 1}/${maxRetries}):`, error?.message || error);

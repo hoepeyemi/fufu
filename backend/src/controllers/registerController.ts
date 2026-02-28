@@ -55,6 +55,7 @@ const handleRegistration = async (req: Request, res: Response) => {
 
     try {
       const result = await registerIpWithCreditcoin(ipHash, metadata, isEncrypted, contractAddress as Address);
+      if (!result) throw new Error('Registration returned no result');
       txHash = result.txHash;
       ipAssetId = result.ipAssetId;
       blockNumber = result.blockNumber;

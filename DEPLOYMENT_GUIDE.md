@@ -13,9 +13,8 @@ The application is currently using the V2 contract:
 
 ### Prerequisites
 
-1. Install dependencies:
+1. Install dependencies (from project root):
    ```bash
-   cd sear
    yarn install
    ```
 
@@ -32,11 +31,12 @@ The application is currently using the V2 contract:
    npx hardhat ignition deploy ignition/modules/ModredIP.ts --network creditcoinTestnet
    ```
 
-2. **After deployment**, update `app/src/deployed_addresses.json`:
+2. **After deployment**, update `app/src/deployed_addresses.json` (or run `yarn install` in `app/` to copy from `ignition/deployments/chain-102031/`):
    ```json
    {
-     "ModredIPModule#ModredIP": "NEW_DEPLOYED_ADDRESS_HERE",
-     ...
+     "ModredIPModule#ERC6551Account": "0x...",
+     "ModredIPModule#ERC6551Registry": "0x...",
+     "ModredIPModule#ModredIP": "NEW_DEPLOYED_ADDRESS_HERE"
    }
    ```
    
@@ -80,7 +80,7 @@ To check if a contract has the `registerIP` function:
 
 ## Contract Source
 
-The contract source is at: `searalt/contracts/ModredIP.sol`
+The contract source is at: `contracts/ModredIP.sol`
 
 ### Key Functions
 

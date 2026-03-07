@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import "./landing-redesign.css";
 import { useNotificationHelpers } from "./contexts/NotificationContext";
 import { NotificationButton } from "./components/NotificationButton";
 import { NotificationToasts } from "./components/NotificationCenter";
@@ -2933,12 +2934,21 @@ export default function App({ thirdwebClient }: AppProps) {
         <header className="header">
           <div className="header-container">
             <div className="header-logo">
-              <img src={LOGO_FAVICON_URL} alt="Fufu" className="logo-image" />
-              <h1>Fufu</h1>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#logo-gradient)" strokeWidth="2.5" strokeLinecap="round" className="loom-logo-icon">
+                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"/>
+                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"/>
+                <defs>
+                  <linearGradient id="logo-gradient" x1="2" y1="12" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#34d399" />
+                    <stop offset="1" stopColor="#a855f7" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <h1>Loom IP</h1>
             </div>
             <div className="header-actions">
               <div className={`status-indicator ${backendStatus ? 'connected' : 'disconnected'}`}>
-                <span>{backendStatus ? '🟢' : '🔴'}</span>
+                <span className="status-dot"></span>
                 <span>Backend {backendStatus ? 'Connected' : 'Disconnected'}</span>
                 <button onClick={checkBackendStatus} className="refresh-btn">🔄</button>
               </div>
@@ -2952,175 +2962,222 @@ export default function App({ thirdwebClient }: AppProps) {
           </div>
         </header>
 
-        <main className="landing">
-          <div className="landing-hero">
-            <div className="landing-hero-bg" aria-hidden="true" />
-            <div className="landing-badge">IP on-chain • Creditcoin • ERC-6551</div>
-            <div className="landing-hero-grid">
-              <div className="landing-hero-copy">
-                <h2 className="landing-title">
-                  Own, license, and protect your intellectual property on-chain
-                </h2>
-                <p className="landing-subtitle">
-                  Fufu puts your IP on the blockchain: register assets, mint licenses, collect royalties, resolve disputes, and transfer ownership—all from one dashboard with verifiable provenance.
-                </p>
-                <div className="landing-actions">
-                  <div className="landing-cta-primary">
-                    <ConnectButton
-                      client={thirdwebClient}
-                      wallets={wallets}
-                      chain={defineChain(creditcoinTestnet.id)}
-                    />
-                  </div>
-                  <button className="btn btn-secondary landing-cta-secondary" onClick={checkBackendStatus}>
-                    {backendStatus ? '✓ Backend connected' : 'Retry backend'}
-                  </button>
-                </div>
-                <div className="landing-highlights">
-                  <span className="landing-pill">Dashboard & analytics</span>
-                  <span className="landing-pill">Licensing & royalties</span>
-                  <span className="landing-pill">Disputes & arbitration</span>
-                  <span className="landing-pill">Transfers & gifting</span>
-                </div>
-                <div className="landing-stats">
-                  <div className="stat">
-                    <div className="stat-value">On-chain</div>
-                    <div className="stat-label">Provenance</div>
-                  </div>
-                  <div className="stat">
-                    <div className="stat-value">Token-bound</div>
-                    <div className="stat-label">IP accounts</div>
-                  </div>
-                  <div className="stat">
-                    <div className="stat-value">Creditcoin</div>
-                    <div className="stat-label">Network</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="landing-illustration">
-                <div className="landing-illustration-inner">
-                  <svg viewBox="0 0 420 320" role="img" aria-label="Fufu dashboard overview">
-                    <defs>
-                      <linearGradient id="landing-grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.9" />
-                        <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.9" />
-                      </linearGradient>
-                      <linearGradient id="landing-grad2" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.15" />
-                        <stop offset="100%" stopColor="#1e293b" stopOpacity="0.4" />
-                      </linearGradient>
-                      <filter id="landing-glow">
-                        <feGaussianBlur stdDeviation="8" result="blur" />
-                        <feMerge>
-                          <feMergeNode in="blur" />
-                          <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                      </filter>
-                    </defs>
-                    <rect x="24" y="32" rx="18" ry="18" width="372" height="256" fill="url(#landing-grad2)" stroke="rgba(6, 182, 212, 0.35)" strokeWidth="1" />
-                    <rect x="48" y="56" rx="12" ry="12" width="200" height="44" fill="#0f172a" stroke="rgba(59, 130, 246, 0.35)" strokeWidth="1" />
-                    <rect x="260" y="56" rx="10" ry="10" width="104" height="44" fill="#0f172a" stroke="rgba(6, 182, 212, 0.4)" strokeWidth="1" />
-                    <rect x="48" y="116" rx="12" ry="12" width="316" height="56" fill="#0b1220" stroke="rgba(59, 130, 246, 0.25)" strokeWidth="1" />
-                    <rect x="48" y="184" rx="12" ry="12" width="150" height="80" fill="#0b1220" stroke="rgba(16, 185, 129, 0.3)" strokeWidth="1" />
-                    <rect x="214" y="184" rx="12" ry="12" width="150" height="80" fill="#0b1220" stroke="rgba(59, 130, 246, 0.3)" strokeWidth="1" />
-                    <circle cx="92" cy="78" r="10" fill="#22c55e" />
-                    <circle cx="120" cy="78" r="10" fill="#f59e0b" />
-                    <circle cx="148" cy="78" r="10" fill="#ef4444" />
-                    <path d="M88 140 h60" stroke="#3b82f6" strokeWidth="6" strokeLinecap="round" />
-                    <path d="M88 156 h110" stroke="#06b6d4" strokeWidth="6" strokeLinecap="round" opacity="0.85" />
-                    <path d="M88 172 h80" stroke="#22c55e" strokeWidth="6" strokeLinecap="round" opacity="0.7" />
-                    <circle cx="124" cy="224" r="26" fill="#0ea5e9" opacity="0.2" />
-                    <path d="M106 224 l16 16 l28 -32" stroke="#22c55e" strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                    <rect x="234" y="202" rx="8" ry="8" width="104" height="20" fill="#1e293b" stroke="rgba(59, 130, 246, 0.35)" strokeWidth="1" />
-                    <rect x="234" y="232" rx="8" ry="8" width="88" height="20" fill="#1e293b" stroke="rgba(16, 185, 129, 0.35)" strokeWidth="1" />
-                    <circle cx="340" cy="212" r="12" fill="url(#landing-grad1)" opacity="0.9" />
-                    <circle cx="340" cy="242" r="10" fill="#22c55e" opacity="0.9" />
-                    <path d="M270 132 q28 -36 72 -8" stroke="url(#landing-grad1)" strokeWidth="6" fill="none" strokeLinecap="round" />
-                    <path d="M270 152 q40 32 76 -4" stroke="#3b82f6" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.7" />
-                    <path d="M270 172 q52 44 90 -6" stroke="#06b6d4" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.65" />
-                    <rect x="182" y="90" rx="10" ry="10" width="152" height="30" fill="#0f172a" stroke="rgba(59, 130, 246, 0.3)" strokeWidth="1" />
-                    <text x="258" y="110" textAnchor="middle" fill="#e2e8f0" fontSize="12" fontWeight="600">On-chain provenance</text>
-                  </svg>
-                </div>
+        <main className="landing-redesign">
+          {/* Glowing Background Elements */}
+          <div className="glow-blob top-left"></div>
+          <div className="glow-blob bottom-right"></div>
+          
+          {/* Hero Section */}
+          <section className="hero-section">
+            <div className="hero-content">
+              <h1 className="hero-title">
+                <span className="title-teal">The Protocol </span>
+                <span className="title-purple">for</span><br/>
+                <span className="title-gradient">
+                  Sovereign<br/>
+                  Creativity
+                </span>
+              </h1>
+              <p className="hero-subtitle mono-text">
+                Secure your legacy. Automate your royalties. Scale<br/>
+                your creative impact with institutional-grade<br/>
+                on-chain IP protection.
+              </p>
+              <div className="hero-actions">
+                <ConnectButton
+                  client={thirdwebClient}
+                  wallets={wallets}
+                  chain={defineChain(creditcoinTestnet.id)}
+                  connectButton={{
+                    label: "Connect Wallet",
+                    className: "connect-wallet-btn"
+                  }}
+                />
               </div>
             </div>
-          </div>
-
-          <section className="landing-sections" aria-label="Features and how it works">
-            <div className="landing-card landing-feature-card">
-              <div className="card-header-inline">
-                <span className="section-icon" aria-hidden="true">✨</span>
-                <h3>What you can do</h3>
-              </div>
-              <div className="feature-grid">
-                <div className="feature">
-                  <div className="feature-icon" aria-hidden="true">📝</div>
-                  <div className="feature-title">Register & store</div>
-                  <div className="feature-text">Attach media, metadata, tags, and categories to every IP asset with IPFS-backed storage.</div>
-                </div>
-                <div className="feature">
-                  <div className="feature-icon" aria-hidden="true">🎫</div>
-                  <div className="feature-title">License & earn</div>
-                  <div className="feature-text">Mint licenses, set royalty rates, track revenue, and receive payouts on-chain.</div>
-                </div>
-                <div className="feature">
-                  <div className="feature-icon" aria-hidden="true">⚖️</div>
-                  <div className="feature-title">Protect & resolve</div>
-                  <div className="feature-text">Raise disputes, assign arbitrators, and track infringement statuses in one place.</div>
-                </div>
-                <div className="feature">
-                  <div className="feature-icon" aria-hidden="true">🔄</div>
-                  <div className="feature-title">Transfer & gift</div>
-                  <div className="feature-text">Move ownership or gift IP assets with full on-chain proof and transfer history.</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="landing-card landing-steps-card">
-              <div className="card-header-inline">
-                <span className="section-icon" aria-hidden="true">🧭</span>
-                <h3>How it works</h3>
-              </div>
-              <ol className="landing-steps">
-                <li>
-                  <div className="step-icon" aria-hidden="true">1</div>
-                  <div>
-                    <div className="step-title">Connect your wallet</div>
-                    <div className="step-text">Link your wallet to unlock the dashboard and all on-chain actions.</div>
-                  </div>
-                </li>
-                <li>
-                  <div className="step-icon" aria-hidden="true">2</div>
-                  <div>
-                    <div className="step-title">Register & license</div>
-                    <div className="step-text">Upload your IP, set terms, mint licenses, and start earning royalties.</div>
-                  </div>
-                </li>
-                <li>
-                  <div className="step-icon" aria-hidden="true">3</div>
-                  <div>
-                    <div className="step-title">Protect & track</div>
-                    <div className="step-text">Monitor activity, resolve disputes, and export history when you need it.</div>
-                  </div>
-                </li>
-                <li>
-                  <div className="step-icon" aria-hidden="true">4</div>
-                  <div>
-                    <div className="step-title">Transfer or gift</div>
-                    <div className="step-text">Transfer ownership or gift assets with transparent on-chain records.</div>
-                  </div>
-                </li>
-              </ol>
-              <div className="landing-note">
-                Connect your wallet above to unlock the full dashboard.
+            <div className="hero-visual">
+              <div className="glass-ring-container">
+                <img src="/hero_image.png" alt="3D Torus Knot" className="hero-3d-image" />
               </div>
             </div>
           </section>
 
-          <footer className="landing-footer">
-            <p>Built on Creditcoin • Powered by ERC-6551 token-bound accounts</p>
-          </footer>
+          {/* Ecosystem Stats Bar */}
+          <section className="stats-bar-container">
+            <div className="stats-bar">
+              <div className="stat-pill">
+                <span className="stat-label">Live Ecosystem Stats</span>
+              </div>
+              <span className="stat-dot">•</span>
+              <div className="stat-item">
+                <span className="stat-title">Total Assets Secured</span>
+                <span className="stat-value highlight-green">($240M+)</span>
+              </div>
+              <span className="stat-dot">•</span>
+              <div className="stat-item">
+                <span className="stat-title">Active Licenses</span>
+                <span className="stat-value highlight-green">(12k)</span>
+              </div>
+              <span className="stat-dot">•</span>
+              <div className="stat-item">
+                <span className="stat-title">Global Creators</span>
+                <span className="stat-value highlight-green">(45k)</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Features Section */}
+          <section className="features-section">
+            <h2 className="section-heading">What you can do</h2>
+            {/* SVG Global Def for Icons */}
+            <svg width="0" height="0" className="hidden-svg-defs" style={{position: 'absolute'}}>
+              <defs>
+                <linearGradient id="feature-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#10b981" />
+                  <stop offset="1" stopColor="#a855f7" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div className="features-grid">
+              <div className="feature-card">
+                <div className="icon-wrapper">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#feature-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </div>
+                <h3>Register & store</h3>
+                <p>Register your IP assets, and immutable documents on-chain.</p>
+              </div>
+              
+              <div className="feature-card">
+                <div className="icon-wrapper">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#feature-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                    <line x1="6" y1="15" x2="10" y2="15"></line>
+                  </svg>
+                </div>
+                <h3>License & earn</h3>
+                <p>Create assets, mint licenses, and collect sovereign royalties.</p>
+              </div>
+              
+              <div className="feature-card">
+                <div className="icon-wrapper">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#feature-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 13L10.5 9.5 8 12l3.5 3.5"></path>
+                    <path d="M17 18l3-3-4-4-3 3"></path>
+                    <path d="M21 9l-6-6-3 3 6 6"></path>
+                    <path d="M3 21h6.5"></path>
+                    <path d="M5.5 19v2"></path>
+                  </svg>
+                </div>
+                <h3>Protect & resolve</h3>
+                <p>Protect and resolve disputes for your verified IP ownership.</p>
+              </div>
+              
+              <div className="feature-card">
+                <div className="icon-wrapper">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#feature-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                  </svg>
+                </div>
+                <h3>Transfer & gift</h3>
+                <p>Transfer and gift IP rights seamlessly across networks.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Industry Solutions Section */}
+          <section className="solutions-section">
+            <h2 className="section-heading">Industry Solutions</h2>
+            <div className="solutions-grid">
+              <div className="solution-card solution-music">
+                <div className="solution-visual">
+                  {/* Dynamic waveform made of varying height lines */}
+                  <div className="waveform-container">
+                    {[3, 5, 8, 4, 12, 18, 14, 25, 10, 20, 30, 22, 15, 28, 18, 10, 5, 8, 3, 2].map((h, i) => (
+                      <div key={i} className="waveform-bar" style={{height: `${h}px`}}></div>
+                    ))}
+                  </div>
+                </div>
+                <h3>Music & Media</h3>
+              </div>
+              
+              <div className="solution-card solution-software">
+                <div className="solution-visual">
+                  <div className="code-window-3d">
+                    <div className="window-header">
+                      <span className="dot"></span><span className="dot"></span><span className="dot"></span>
+                    </div>
+                    <div className="window-body">
+                      {[1, 2, 3, 4].map(i => (
+                        <div key={i} className={`code-line w-${i}`}></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <h3>Software & SaaS</h3>
+              </div>
+              
+              <div className="solution-card solution-physical">
+                <div className="solution-visual">
+                  <div className="cube-3d">
+                    <div className="cube-face front"></div>
+                    <div className="cube-face right"></div>
+                    <div className="cube-face top"></div>
+                  </div>
+                </div>
+                <h3>Physical Goods</h3>
+              </div>
+            </div>
+          </section>
+
+          {/* Integrations Section */}
+          <section className="integrations-section">
+            <h2 className="section-heading-small">Integrations</h2>
+            <div className="integration-icons">
+              {/* Using generic unicode/emoji placeholders for integrations */}
+              <span>▲</span> <span>♾️</span> <span>⚡</span> <span>⬡</span> <span>⚙️</span> <span>⚛️</span> <span>⌘</span> <span>👾</span> <span>◈</span> <span>✖</span> <span>🎮</span> <span>⚙</span>
+            </div>
+          </section>
+
+          {/* Testimonials Section */}
+          <section className="testimonials-section">
+            <h2 className="section-heading">Community/Social Proof</h2>
+            <div className="testimonials-grid">
+              <div className="testimonial-card">
+                <div className="quote-mark">“</div>
+                <p>Fufu makes IP truly sovereign for creators—with stored licenses and creative control.</p>
+                <div className="author">
+                  <span className="author-name">Alex Metaon</span>
+                  <span className="author-role">Autonomous Creators</span>
+                </div>
+              </div>
+
+              <div className="testimonial-card">
+                <div className="quote-mark">“</div>
+                <p>The IP contents within the protocol are secured on the blockchain for the whole community.</p>
+                <div className="author">
+                  <span className="author-name">Mark Breark</span>
+                  <span className="author-role">Automated Creator</span>
+                </div>
+              </div>
+
+              <div className="testimonial-card">
+                <div className="quote-mark">“</div>
+                <p>They are fully committed to creative empowerment, removing limitations entirely.</p>
+                <div className="author">
+                  <span className="author-name">Liam Seaxien</span>
+                  <span className="author-role">Development Telecom</span>
+                </div>
+              </div>
+            </div>
+          </section>
         </main>
       </div>
     );
@@ -3135,12 +3192,21 @@ export default function App({ thirdwebClient }: AppProps) {
       <header className="header">
         <div className="header-container">
           <div className="header-logo">
-            <img src={LOGO_FAVICON_URL} alt="Fufu" className="logo-image" />
-            <h1>Fufu</h1>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#logo-gradient)" strokeWidth="2.5" strokeLinecap="round" className="loom-logo-icon">
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"/>
+              <defs>
+                <linearGradient id="logo-gradient" x1="2" y1="12" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#34d399" />
+                  <stop offset="1" stopColor="#a855f7" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <h1>Loom IP</h1>
           </div>
           <div className="header-actions">
             <div className={`status-indicator ${backendStatus ? 'connected' : 'disconnected'}`}>
-              <span>{backendStatus ? '🟢' : '🔴'}</span>
+              <span className="status-dot"></span>
               <span>Backend {backendStatus ? 'Connected' : 'Disconnected'}</span>
               <button onClick={checkBackendStatus} className="refresh-btn">🔄</button>
             </div>

@@ -51,13 +51,17 @@
 }
 
 .header h1 {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
   margin: 0;
+}
+
+.loom-logo-icon {
+  width: 2rem;
+  height: 2rem;
 }
 
 .header-actions {
@@ -80,15 +84,38 @@
 }
 
 .status-indicator.connected {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.2);
-  color: var(--color-success);
+  background: linear-gradient(90deg, #10b981 0%, #a855f7 100%);
+  border: none;
+  color: #ffffff;
+  border-radius: 9999px;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #4ade80;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px #4ade80;
 }
 
 .status-indicator.disconnected {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.2);
   color: var(--color-error);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+}
+
+.status-indicator.disconnected .status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px #ef4444;
 }
 
 .refresh-btn {
@@ -105,6 +132,21 @@
 .refresh-btn:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: rotate(90deg);
+}
+
+/* Header Connect Button Overrides */
+.header-actions .tw-connect-wallet {
+  background: linear-gradient(90deg, #2dd4bf 0%, #14b8a6 100%) !important;
+  color: #0f172a !important;
+  border-radius: 9999px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  padding: 0.5rem 1.5rem !important;
+  transition: opacity 0.2s !important;
+}
+
+.header-actions .tw-connect-wallet:hover {
+  opacity: 0.9 !important;
 }
 
 /* Notification Button */

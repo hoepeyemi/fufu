@@ -1,4 +1,4 @@
-name: Deploy Eduworld Backend4
+name: Deploy Fufu Backend4
 
 on:
   push:
